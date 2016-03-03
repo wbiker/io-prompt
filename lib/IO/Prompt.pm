@@ -83,6 +83,8 @@ our $.lang_prompt_rat       = 'Num';
 our $.lang_prompt_rat_retry = 'Please enter a valid number';
 our $.lang_prompt_str       = 'Str';
 our $.lang_prompt_str_retry = 'Please enter a valid string';
+our $.lang_prompt_dt       = '%MM/%DD/%YYYY %h:%m:%s';
+our $.lang_prompt_str_retry = 'Please enter a valid date and time';
 
 
 ## Object evaluation in various contexts (type coersion)
@@ -233,4 +235,27 @@ method ask_str ( Str $message=$!message,
    return $result // Str;
 }
 
+method ask_dt ( Str $message=$!message,
+                 $default=$!default ) returns DateTime {
+
+    my Str $result;
+    my Str $prompt = "{$message ?? "$message " !! ''}[{
+                       $default // $.lang_prompt_dt}] ";
+
+    loop {
+        my Str $response = self._do_prompt( $prompt );
+
+        given $response {
+            when ''
+                { $result = $default // '' }
+            default
+                { $result = ~$response }
+        }
+
+        last if defined $result;
+        last if not self._do_say( $.lang_prompt_dt_retry );
+    }
+ 
+   return $result // DateTime;
+}
 # vim: ft=perl6
