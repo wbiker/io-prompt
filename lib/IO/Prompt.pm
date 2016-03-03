@@ -1,5 +1,8 @@
+#!perl6
 use v6;
 unit class IO::Prompt;
+
+use IO::Prompt::DateTime::Format;
 
 ## Exported functional frontend
 ##
@@ -37,12 +40,14 @@ method ask ( Str $message=$!message,
         when .isa(Int)  { self.ask_int( |$args ); }
         when .isa(Num)  { self.ask_num( |$args ); }
         when .isa(Str)  { self.ask_str( |$args ); }
+        when .isa(DateTime)  { self.ask_dt( |$args ); }
         default            {
           given $default     {
             when .isa(Bool) { self.ask_yn(  |$args ); }
             when .isa(Int)  { self.ask_int( |$args ); }
             when .isa(Num)  { self.ask_num( |$args ); }
             when .isa(Str)  { self.ask_str( |$args ); }
+            when .isa(DateTime)  { self.ask_dt( |$args ); }
             default            { self.ask_str( |$args ); }
           } # given $default
         } # given $type default
@@ -84,7 +89,7 @@ our $.lang_prompt_rat_retry = 'Please enter a valid number';
 our $.lang_prompt_str       = 'Str';
 our $.lang_prompt_str_retry = 'Please enter a valid string';
 our $.lang_prompt_dt       = '%MM/%DD/%YYYY %h:%m:%s';
-our $.lang_prompt_str_retry = 'Please enter a valid date and time';
+our $.lang_prompt_dt_retry = 'Please enter a valid date and time';
 
 
 ## Object evaluation in various contexts (type coersion)
@@ -238,18 +243,37 @@ method ask_str ( Str $message=$!message,
 method ask_dt ( Str $message=$!message,
                  $default=$!default ) returns DateTime {
 
-    my Str $result;
+    my DateTime $result;
     my Str $prompt = "{$message ?? "$message " !! ''}[{
                        $default // $.lang_prompt_dt}] ";
 
     loop {
         my Str $response = self._do_prompt( $prompt );
 
-        given $response {
-            when ''
-                { $result = $default // '' }
-            default
-                { $result = ~$response }
+        my $match = IO::Prompt::DateTime::Format.parse($response);
+
+        if $match {
+            $result = DateTime.new(
+                month => $match<month>,
+                day => $match<day>,
+                year => $match<year>,
+                hour => $match<hour>,
+                minute => $match<minute>,
+                second => $match<second>
+                );
+        }
+        else {
+            if $default {
+                my $m = IO::Prompt::DateTime::Format.parse($default);
+                $result = DateTime.new(
+                    month => $m<month>,
+                    day => $m<day>,
+                    year => $m<year>,
+                    hour => $m<hour>,
+                    minute => $m<minute>,
+                    second => $m<second>
+                    ) if $m;
+            }
         }
 
         last if defined $result;

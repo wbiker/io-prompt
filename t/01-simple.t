@@ -48,6 +48,11 @@ my @tests = (
 [ q{ask_int( 'iA?', 10    )}, 'Please enter a valid integer', 'aaa', Int ],
 [ q{ask_int( 'iB?'        )}, 'Please enter a valid integer', '',    Int ],
 
+## DateTime parsing tests
+##  method   quest  default   output                            answer   expected
+[ q{ask_dt( 'dt1?',       )}, 'dt1? [%MM/%DD/%YYYY %h:%m:%s] ', '1/12/2015 23:13:00', '2015-01-12T23:13:00Z' ],
+[ q{ask_dt( 'dt2?',       )}, 'Please enter a valid date and time', '', DateTime ],
+
 );
 
 ## One test for loading the package, two tests for each row above:
