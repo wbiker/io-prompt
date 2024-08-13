@@ -3,6 +3,7 @@
     "pnu",
     "wbiker"
   ],
+  "auth": ["zef:wbiker"],
   "build-depends" : [ ],
   "depends" : [ ],
   "description" : "This is a generic module for interactive prompting from the console.",
