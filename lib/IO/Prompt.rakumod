@@ -1,4 +1,3 @@
-use v6;
 unit class IO::Prompt;
 
 ## Exported functional frontend

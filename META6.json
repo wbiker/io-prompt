@@ -1,7 +1,5 @@
 {
-  "auth": [
-    "zef:wbiker"
-  ],
+  "auth": "zef:wbiker",
   "authors": [
     "pnu",
     "wbiker"
