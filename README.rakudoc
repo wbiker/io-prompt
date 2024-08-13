@@ -1,8 +1,10 @@
-=head1 
+=begin pod
+=head1
 
 IO::Prompt -- Interactive validating terminal prompt
 
-=for HTML <a href="https://travis-ci.org/wbiker/io-prompt"><img src="https://travis-ci.org/wbiker/io-prompt.svg?branch=master"></a>
+=for HTML
+<a href="https://travis-ci.org/wbiker/io-prompt"><img src="https://travis-ci.org/wbiker/io-prompt.svg?branch=master"></a>
 
 =head1 SYNOPSIS
 
@@ -115,6 +117,4 @@ Example:
 =head1 COPYRIGHT
 
 Written by pnu, maintained by wbiker
-
-
-
+=end pod
