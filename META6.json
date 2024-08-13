@@ -1,23 +1,30 @@
 {
-  "authors" : [
+  "auth": [
+    "zef:wbiker"
+  ],
+  "authors": [
     "pnu",
     "wbiker"
   ],
-  "auth": ["zef:wbiker"],
-  "build-depends" : [ ],
-  "depends" : [ ],
-  "description" : "This is a generic module for interactive prompting from the console.",
-  "license" : "Artistic-2.0",
-  "name" : "IO::Prompt",
-  "perl" : "6.*",
-  "provides" : {
-    "IO::Prompt" : "lib/IO/Prompt.pm"
+  "build-depends": [
+  ],
+  "depends": [
+    "v6"
+  ],
+  "description": "This is a generic module for interactive prompting from the console.",
+  "license": "Artistic-2.0",
+  "name": "IO::Prompt",
+  "perl": "6.*",
+  "provides": {
+    "IO::Prompt": "lib\\IO\\Prompt.rakumod"
   },
-  "resources" : [ ],
-  "source-url" : "git://github.com/wbiker/io-prompt.git",
-  "tags" : [ ],
-  "test-depends" : [
+  "resources": [
+  ],
+  "source-url": "git://github.com/wbiker/io-prompt.git",
+  "tags": [
+  ],
+  "test-depends": [
     "Test"
   ],
-  "version" : "0.0.2"
+  "version": "0.0.3"
 }
